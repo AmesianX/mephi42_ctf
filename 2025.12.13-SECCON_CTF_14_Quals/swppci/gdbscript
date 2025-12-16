@@ -1,0 +1,13 @@
+b *((long)swp_mmio_write - 0x460480 + 0x46062d)
+commands
+  printf "size = %p\n", $rsi
+  c
+end
+
+b *((long)swp_mmio_write - 0x460480 + 0x460632)
+commands
+  printf "storage = %p\n", $rax
+  c
+end
+
+c

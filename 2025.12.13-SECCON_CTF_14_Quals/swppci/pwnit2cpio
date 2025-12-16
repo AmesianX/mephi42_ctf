@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e -u -x
+workdir=$(mktemp -d)
+trap 'rm -r "$workdir"' EXIT
+mkdir "$workdir/fs"
+chmod 755 "$workdir/fs"
+cat >"$workdir/fs/p"
+chmod 700 "$workdir/fs/p"
+(cd "$workdir/fs" && find . -print0 | cpio --null --create --format=newc --owner=+0:+0)

@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+import sys
+import re
+
+prev_end = None
+
+for line in sys.stdin:
+    line = line.rstrip('\n')
+    
+    # Try to parse address range (e.g., "00400000-00401000" or "0x400000-0x401000")
+    match = re.match(r'^\s*([0-9a-fA-F]+)-([0-9a-fA-F]+)', line)
+    if match:
+        start = int(match.group(1), 16)
+        end = int(match.group(2), 16)
+        
+        if prev_end is not None and start > prev_end:
+            hole = start - prev_end
+            print(f"  [hole: 0x{hole:x}]")
+        
+        prev_end = end
+    
+    print(line)
+

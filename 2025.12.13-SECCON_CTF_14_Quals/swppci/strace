@@ -1,0 +1,3 @@
+#!/bin/sh
+pid=$(pidof qemu-system-x86_64)
+exec sudo strace -p "$pid" -f "$@"

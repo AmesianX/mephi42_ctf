@@ -1,0 +1,3 @@
+#!/bin/sh
+pid=$(pidof qemu-system-x86_64)
+exec sudo gdb -p "$pid" -iex "set pagination off" -ex "set sysroot /proc/$pid/root" "/proc/$pid/root/app/qemu-system-x86_64" "$@"
